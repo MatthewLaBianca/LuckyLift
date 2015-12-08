@@ -12,7 +12,13 @@ public class ListManager : MonoBehaviour {
     public int correctFloors;
     public Text winOrLose;
 
+	public Button submitBttn;
+
+	private int amntSelected;
+
 	void Start () {
+		amntSelected = 0;
+		submitBttn.interactable = false;
         correctFloors = 0;  //Initialize the game so that at the beginning there are no correct floors
         for (int i = 0; i < floors.Count; i++)              //Randomize the list of floors
         {
@@ -23,10 +29,33 @@ public class ListManager : MonoBehaviour {
         }
     }
 
+	void Update()
+	{
+		if(amntSelected <= 0)
+		{
+			submitBttn.interactable = false;
+		}else
+		{
+			submitBttn.interactable = true;
+		}
+	}
+
 
     public void AddFloorToSelectedFloors(int chosenFloor)   //When a button is selected,
     {                                                       //make a new list of selected floors
-        selectedFloors.Add(floors[chosenFloor - 1]);		//on button press, pass in the chosen floor so that we know how many winning floors have been chosen
+
+		if(!GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled)
+		{
+			amntSelected++;
+        	selectedFloors.Add(floors[chosenFloor - 1]);		//on button press, pass in the chosen floor so that we know how many winning floors have been chosen
+			GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = true;
+		}
+		else
+		{
+			amntSelected--;
+			selectedFloors.Remove(floors[chosenFloor - 1]);
+			GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = false;
+		}
     }
 
 	
