@@ -9,6 +9,7 @@ public class ListManager : MonoBehaviour {
     public List<int> floors = new List<int>();
     public List<int> selectedFloors = new List<int>();		//this can turn private once it is ready to publish
 
+
     public int correctFloors;
     public Text winOrLose;
 
@@ -38,23 +39,35 @@ public class ListManager : MonoBehaviour {
 		{
 			submitBttn.interactable = true;
 		}
+
 	}
 
 
     public void AddFloorToSelectedFloors(int chosenFloor)   //When a button is selected,
     {                                                       //make a new list of selected floors
-
-		if(!GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled)
+		if(amntSelected < 5)
 		{
-			amntSelected++;
-        	selectedFloors.Add(floors[chosenFloor - 1]);		//on button press, pass in the chosen floor so that we know how many winning floors have been chosen
-			GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = true;
+			if(!GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled)
+			{
+				amntSelected++;
+	        	selectedFloors.Add(floors[chosenFloor - 1]);		//on button press, pass in the chosen floor so that we know how many winning floors have been chosen
+				GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = true;
+			}
+			else
+			{
+				amntSelected--;
+				selectedFloors.Remove(floors[chosenFloor - 1]);
+				GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = false;
+			}
 		}
-		else
-		{
-			amntSelected--;
-			selectedFloors.Remove(floors[chosenFloor - 1]);
-			GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = false;
+		else{
+			
+			if(GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled)
+			{
+				amntSelected--;
+				selectedFloors.Remove(floors[chosenFloor - 1]);
+				GameObject.Find("on_border_" + (chosenFloor).ToString()).GetComponent<Image>().enabled = false;
+			}
 		}
     }
 
