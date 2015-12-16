@@ -17,10 +17,13 @@ public class ButtonTracker : MonoBehaviour {
 
 			if(listMan.realSelectedFloors[i] != null)
 			{
-				selectedButtons[i].text = listMan.realSelectedFloors[i].ToString();
-			}else
-			{
-				selectedButtons[i].text = "n/a";
+				if(listMan.realSelectedFloors[i] == 0)
+				{
+					selectedButtons[i].text = "-";
+				}else
+				{
+					selectedButtons[i].text = listMan.realSelectedFloors[i].ToString();
+				}
 			}
 		}
 	}
