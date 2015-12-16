@@ -16,7 +16,7 @@ public class ListManager : MonoBehaviour {
 	public Button submitBttn;
 
 	private int amntSelected;
-
+	public List<int> realWinningFloors = new List<int>();
 	void Start () {
 		amntSelected = 0;
 		submitBttn.interactable = false;
@@ -28,6 +28,13 @@ public class ListManager : MonoBehaviour {
             floors[i] = floors[randomIndex];
             floors[randomIndex] = temp;
         }
+		for(int i = 0; i<floors.Capacity;i++)
+		{
+			if(floors[i] == 1)
+			{
+				realWinningFloors.Add(i+1);
+			}
+		}
     }
 
 	void Update()
@@ -79,9 +86,10 @@ public class ListManager : MonoBehaviour {
 		}
     }
 
-	
+
     public void SubmitTicket()
     {
+		
         foreach(int floor in selectedFloors)		//check each "floor" in the list.
         {											//if the floor is a 1, it is a winning floor
             if (floor == 1)							//if the floor holds a 0, it is a losing floor

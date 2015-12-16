@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour {
 
 	//classes
-
+	public randomizedNumbers numScript = new randomizedNumbers();
 	private const float kSecondsInMinute = 60.0f;
 	public int kMinutesTillNewGame = 0;
 	private int minutes;
@@ -61,6 +61,7 @@ public class TimeManager : MonoBehaviour {
 			minutes = kMinutesTillNewGame;
 			seconds = kSecondsInMinute;
 			timerText.color = Color.green;
+			numScript.gameReady = true;
 			//GenerateNums(40);
 		}
 	}
