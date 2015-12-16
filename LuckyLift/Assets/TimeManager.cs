@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour {
 	private float seconds;
 
 	public Text timerText;
-
+	public Text menuTimerText;
 
 	// Use this for initialization
 	void Start () {
@@ -45,12 +45,16 @@ public class TimeManager : MonoBehaviour {
 		if(cleanSeconds >= 10)
 		{
 			timerText.text = minutes.ToString() + ":" + cleanSeconds.ToString();
+			menuTimerText.text = minutes.ToString() + ":" + cleanSeconds.ToString();
+
 		}else{
 			timerText.text = minutes.ToString() + ":0" + cleanSeconds.ToString();
+			menuTimerText.text = minutes.ToString() + ":0" + cleanSeconds.ToString();
 		}
 		if(cleanSeconds <= 30 && minutes == 0)
 		{
 			timerText.color = Color.yellow;
+			menuTimerText.color = Color.yellow;
 		}
 		if(minutes < 0)
 		{
