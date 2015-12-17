@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour {
 	//classes
 	public randomizedNumbers numScript = new randomizedNumbers();
 	private const float kSecondsInMinute = 60.0f;
-	public int kMinutesTillNewGame = 0;
+	public const int kMinutesTillNewGame = 3;
 	private int minutes;
 	private float seconds;
 
@@ -27,8 +27,8 @@ public class TimeManager : MonoBehaviour {
 
     public void ResetTimer()
     {
-        minutes = 2;
-        seconds = 59;
+		minutes = kMinutesTillNewGame - 1;
+		seconds = kSecondsInMinute;
     }
 
 	void StartTimer()
@@ -55,11 +55,11 @@ public class TimeManager : MonoBehaviour {
 		{
 			timerText.color = Color.yellow;
 			menuTimerText.color = Color.yellow;
+			numScript.gameReady = false;
 		}
 		if(minutes < 0)
 		{
-			minutes = kMinutesTillNewGame;
-			seconds = kSecondsInMinute;
+			ResetTimer();
 			timerText.color = Color.green;
 			numScript.gameReady = true;
 			//GenerateNums(40);
