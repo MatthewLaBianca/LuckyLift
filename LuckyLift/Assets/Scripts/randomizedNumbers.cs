@@ -8,6 +8,10 @@ public class randomizedNumbers : MonoBehaviour {
 	public List<Image> terminals = new List<Image>();
 	public ListManager listMan = new ListManager();
 
+
+	public List<GameObject>MatchSounds = new List<GameObject>();
+	public List<GameObject>NoMatchSounds = new List<GameObject>();
+
 	List<bool> flippingNumbers = new List<bool>();
 
 	public bool gameReady;
@@ -41,10 +45,16 @@ public class randomizedNumbers : MonoBehaviour {
 		flippingNumbers[2] = true;
 		flippingNumbers[3] = true;
 		flippingNumbers[4] = true;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
+		
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			gameReady = true;
+		}
 		Randomize(gameReady);
 		if(gameReady)
 		{
@@ -61,10 +71,12 @@ public class randomizedNumbers : MonoBehaviour {
 			numbers[i].text = listMan.realWinningFloors[i].ToString();
 			if(listMan.realSelectedFloors.Contains(listMan.realWinningFloors[i]))
 			{
+				MatchSounds[i].SetActive(true);
 				terminals[i].color = new Vector4(0,255,0,.5f);
 			}
 			else
 			{
+				NoMatchSounds[i].SetActive(true);
 				terminals[i].color = new Vector4(255,0,0,.5f);
 			}
 
@@ -89,7 +101,7 @@ public class randomizedNumbers : MonoBehaviour {
 					number4++;
 			if(flippingNumbers[4])
 					number5++;
-			}
+			
 
 			if(number >= 40)
 			{
@@ -99,19 +111,48 @@ public class randomizedNumbers : MonoBehaviour {
 				number4 = Random.Range(1,39);
 				number5 = Random.Range(1,39);
 			}
+		}
 		if(flippingNumbers[0])
+		{
 			numbers[0].text = number.ToString();
+
+		}
 		if(flippingNumbers[1])
+		{
 			numbers[1].text = number2.ToString();
+
+		}
 		if(flippingNumbers[2])
+		{
 			numbers[2].text = number3.ToString();
+
+		}
 		if(flippingNumbers[3])
+		{
 			numbers[3].text = number4.ToString();
+
+		}
 		if(flippingNumbers[4])
+		{
 			numbers[4].text = number5.ToString();
 
+		}
+		
 		if(!ready)
 		{
+			flippingNumbers[0] = true;
+			flippingNumbers[1] = true;
+			flippingNumbers[2] = true;
+			flippingNumbers[3] = true;
+			flippingNumbers[4] = true;
+			foreach(GameObject snd in MatchSounds)
+			{
+				snd.SetActive(false);
+			}
+			foreach(GameObject snd in NoMatchSounds)
+			{
+				snd.SetActive(false);
+			}
 			foreach(Image terminal in terminals)
 			{
 				terminal.color = new Vector4(0,0,0,.5f);
